@@ -8,7 +8,6 @@ import json
 import os.path
 import time
 import pandas as pd
-import locale
 import telebot
 from telas import *
 from google_sheets import Url_Sheets
@@ -22,23 +21,26 @@ class MainApp(MDApp):
         self.arq_nomes = None
         self.txt_input_nome = StringProperty('')
         self.txt_input_hora = StringProperty('')
+        self.agora = datetime.now()
+        #self.dic_dias = {'MONDAY':'SEGUNDA-FEIRA', 'TUESDAY':'TERÇA-FEIRA', 'WEDNESDAY':'QUARTA-FEIRA', 'THURSDAY':'QUINTA-FEIRA', 'FRIDAY':'SEXTA-FEIRA'}
+        self.dic_dias = {0:'SEGUNDA-FEIRA', 1:'TERÇA-FEIRA', 2:'QUARTA-FEIRA', 3:'QUINTA-FEIRA', 4:'SEXTA-FEIRA'}
+        self.dic_meses = {1:'janeiro', 2:'fevereiro', 3:'março', 4:'abril', 5:'maio', 6:'junho', 7:'julho', 8:'agosto', 9:'setembro', 10:'outubro', 11:'novembro', 12:'dezembro'}
         return Builder.load_file('main.kv')
 
     def atualizar_hora(self, dt):
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-        self.agora = datetime.now()
+        #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
         self.hora_formatada = self.agora.strftime("%H:%M")
         self.label_hr.text = self.hora_formatada
 
     def on_start(self):
 # RELOGIO E DATA ---------------------------------------------------------------------
-        locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-        agora = datetime.now()
-        dia = agora.strftime("%A, %d de %B de %Y")
+        #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+        #agora = datetime.now()
+        #dia = self.agora.strftime("%A, %d de %B de %Y")
 
         label_dia = self.root.ids['homepage']
         label_dia = label_dia.ids['id_dia']
-        label_dia.text = dia
+        label_dia.text = f'{self.dic_dias[self.agora.weekday()].lower()}, {self.agora.day} de {self.dic_meses[self.agora.month]} de {self.agora.year}' #dia
 
         self.label_hr = self.root.ids['homepage']
         self.label_hr = self.label_hr.ids['id_horario']
@@ -142,8 +144,10 @@ class MainApp(MDApp):
 
             df_hrs = self.agenda_psico['HORA/DIA']  # das 7h30 até 21h -> 28 horarios(linhas)
 
-            locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-            dia_hoje = f'{self.agora.strftime("%A")}'
+            #locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+            dia_hoje = self.agora.weekday()  #f'{self.agora.strftime("%A")}'
+            dia_hoje = self.dic_dias[dia_hoje]
+
             pacientes_dia = self.agenda_psico[f'{dia_hoje.upper()}']
 
             def calcular_diferenca_em_segundos(hora1, hora2, tempo):
