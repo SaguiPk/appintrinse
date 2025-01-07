@@ -1,5 +1,9 @@
 import json
 import pandas as pd
+import os
+import certifi
+
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 class Url_Sheets:
     def __init__(self):
