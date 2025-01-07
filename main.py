@@ -6,12 +6,14 @@ from kivy.properties import StringProperty
 from datetime import datetime, timedelta
 import json
 import os.path
+import certifi
 import time
 import pandas as pd
 import telebot
 from telas import *
 from google_sheets import Url_Sheets
 
+os.environ["SSL_CERT_FILE"] = certifi.where()
 
 class MainApp(MDApp):
     def build(self):
