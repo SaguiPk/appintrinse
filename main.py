@@ -183,9 +183,8 @@ class MainApp(MDApp):
 
             def requerir_plan(id_psico, sucesso_callback=None):
                 #print('buscando planilha')
-                url = f'https://docs.google.com/spreadsheets/d/1wgzO2nbzYRhCJBa501t1RxDMKdaEdjxj/export?gid={str(id_psico)}&range=A:F&format=csv'
-                #url = f'https://docs.google.com/spreadsheets/d/1PBwyM79jZS7b4GxSr1ayocGleWT48k9V/export?gid={str(id_psico)}&range=A:F&format=csv'
-                #       https://docs.google.com/spreadsheets/d/1PBwyM79jZS7b4GxSr1ayocGleWT48k9V/edit?gid=23980677#gid=23980677
+                url = f'https://docs.google.com/spreadsheets/d/<key>/export?gid={str(id_psico)}&range=A:F&format=csv'
+
 
                 def sucesso(req, result):
                     if not result:
@@ -511,7 +510,7 @@ class MainApp(MDApp):
 
                         # id_tele = {'AUGUSTO': '', 'DEISE': 7948929598, 'ESMERALDA': 7539919786, 'GUILHERME': 7389489862, 'HINGRID': 7082995612, 'JULIA': 494843945, 'JULIE': 8107133645, 'MARIANA': '','MARINA': '', 'PAULO': 1909136619, 'REGINA': 1110671682, 'THAINA': 5595509644}
                         try:
-                            bot = telebot.TeleBot(token='7815118468:AAEX4Ok1zRYHxEBhRpmj9mGxGhXam-SP7Lk')   #'8079890566:AAEMXjtoZtI67YZPiA-hdDtorzCkf49Iums')
+                            bot = telebot.TeleBot(token='<key>')  
                             bot.send_message(chat_id=self.ids_teles[self.psico], text=f'{n.upper()}')  # text=f'{nome_paciente.text.upper()}')
                             Clock.schedule_once(callback=self.voltar, timeout=10)
 
@@ -557,7 +556,7 @@ class MainApp(MDApp):
                                 encontrou = True
 
                                 try:
-                                    bot = telebot.TeleBot(token='7815118468:AAEX4Ok1zRYHxEBhRpmj9mGxGhXam-SP7Lk')    #'8079890566:AAEMXjtoZtI67YZPiA-hdDtorzCkf49Iums')
+                                    bot = telebot.TeleBot(token='<key>') 
                                     bot.send_message(chat_id=self.ids_teles[self.psico], text=f'{n.upper()}')  # text=f'{nome_paciente.text.upper()}')
                                     Clock.schedule_once(callback=self.voltar, timeout=10)
                                 except Exception as e:
@@ -724,7 +723,7 @@ class MainApp(MDApp):
             self.dialog = None
             self.current_index = 0
             self.total_arquivos = len(self.arq_nomes)
-            self.bot = telebot.TeleBot(token='7815118468:AAEX4Ok1zRYHxEBhRpmj9mGxGhXam-SP7Lk')      #'8079890566:AAEMXjtoZtI67YZPiA-hdDtorzCkf49Iums'
+            self.bot = telebot.TeleBot(token='<key>')  
 
 
             # self.dialog = MDDialog(MDDialogHeadlineText(text="Enviar Controle de Datas"),
