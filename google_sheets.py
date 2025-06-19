@@ -60,7 +60,7 @@ class Url_Sheets:
     def __init__(self):
         self.conexao = False
         self.verif_conect()
-        self.url = 'https://docs.google.com/spreadsheets/d/1wgzO2nbzYRhCJBa501t1RxDMKdaEdjxj/'       #'https://docs.google.com/spreadsheets/d/1PBwyM79jZS7b4GxSr1ayocGleWT48k9V/'  #export?gid={id}&range=A:F&format=csv'
+        self.url = 'https://docs.google.com/spreadsheets/d/<key>/'
         self.session = requests.Session()
 
     def verif_conect(self, url:str="http://www.google.com", timeout:int=5) -> bool:
@@ -92,10 +92,10 @@ class Url_Sheets:
             return None
 
     def nomes_ids(self) -> Tuple[Optional[Dict], Optional[Dict]]:
-        # response = requests.get(self.url + 'export?gid=268641735&range=A:C&format=csv', verify=certifi.where())
+        # response = requests.get(self.url + 'export?gid=<key>&range=A:C&format=csv', verify=certifi.where())
         # response.raise_for_status()  # Lança exceção para erros HTTP
         # df = pd.read_csv(io.StringIO(response.text))
-        url = self.url + 'export?gid=1538723142&range=A:C&format=csv'
+        url = self.url + 'export?gid=<key>&range=A:C&format=csv'
         #print('extraindo nomes e ids')
         response = self.fetch_csv(url)
         if not response:
